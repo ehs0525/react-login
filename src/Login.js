@@ -54,7 +54,7 @@ const Login = () => {
         if (!err?.response) {
           setErrMsg("서버 응답 없음");
         } else if (err.response?.status === 400) {
-          setErrMsg("아이디 또는 비밀번호가 틀립니다.");
+          setErrMsg("아이디 또는 비밀번호를 입력하세요.");
         } else if (err.response?.status === 401) {
           setErrMsg("인증되지 않은 사용자입니다.");
         } else {
