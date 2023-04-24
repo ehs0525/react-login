@@ -39,6 +39,16 @@ const Login = () => {
           value={id}
           required
         />
+
+        {/* 비밀번호 */}
+        <label htmlFor="password">비밀번호</label>
+        <input
+          type="password"
+          id="password"
+          onChange={(e) => setPw(e.target.value)}
+          value={pw}
+          required
+        />
       </form>
     </section>
   );
