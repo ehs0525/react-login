@@ -1,33 +1,33 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 
 const Home = () => {
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     // if used in more components, this should be in context
     // axios to /logout endpoint
     setAuth({});
     navigate("/linkpage");
-  };
+  }, [setAuth, navigate]);
 
   return (
     <section>
-      <h1>Home</h1>
+      <h1>홈 화면</h1>
       <br />
-      <p>You are logged in!</p>
+      <p>로그인에 성공하셨습니다.</p>
       <br />
-      <Link to="/editor">Go to the Editor page</Link>
+      <Link to="/editor">Editor 페이지로 가기</Link>
       <br />
-      <Link to="/admin">Go to the Admin page</Link>
+      <Link to="/admin">Admin 페이지로 가기</Link>
       <br />
-      <Link to="/lounge">Go to the Lounge</Link>
+      <Link to="/lounge">Lounge로 가기</Link>
       <br />
-      <Link to="/linkpage">Go to the link page</Link>
+      <Link to="/linkpage">link 페이지로 가기</Link>
       <div className="flexGrow">
-        <button onClick={logout}>Sign Out</button>
+        <button onClick={logout}>로그아웃</button>
       </div>
     </section>
   );
