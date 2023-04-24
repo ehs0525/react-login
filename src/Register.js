@@ -85,7 +85,7 @@ const Register = () => {
         } else if (err.response?.status === 409) {
           setErrMsg("이미 존재하는 아이디입니다.");
         } else {
-          setErrMsg("가입 실패");
+          setErrMsg("회원가입에 실패하였습니다.");
         }
         errRef.current.focus();
       }

@@ -7,6 +7,9 @@ import React, {
 } from "react";
 
 import AuthContext from "./context/AuthProvider";
+import axios from "./api/axios";
+
+const LOGIN_URL = "/auth";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
@@ -29,12 +32,38 @@ const Login = () => {
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      console.log(id, pw);
-      setId("");
-      setPw("");
-      setSuccess(true);
+
+      try {
+        const response = await axios.post(
+          LOGIN_URL,
+          JSON.stringify({ user: id, pwd: pw }),
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        );
+        console.log(JSON.stringify(response?.data));
+        // console.log(JSON.stringify(response));
+        const accessToken = response?.data?.accessToken;
+        const roles = response?.data?.roles;
+        setAuth({ id, pw, roles, accessToken });
+        setId("");
+        setPw("");
+        setSuccess(true);
+      } catch (err) {
+        if (!err?.response) {
+          setErrMsg("서버 응답 없음");
+        } else if (err.response?.status === 400) {
+          setErrMsg("아이디 또는 비밀번호가 틀립니다.");
+        } else if (err.response?.status === 401) {
+          setErrMsg("인증되지 않은 사용자입니다.");
+        } else {
+          setErrMsg("로그인에 실패하였습니다.");
+        }
+        errRef.current.focus();
+      }
     },
-    [id, pw]
+    [id, pw, setAuth]
   );
 
   return (
