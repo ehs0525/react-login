@@ -6,13 +6,13 @@ import React, {
   useState,
 } from "react";
 
-import AuthContext from "./context/AuthProvider";
-import axios from "./api/axios";
+import axios from "../api/axios";
+import useAuth from "../hooks/useAuth";
 
 const LOGIN_URL = "/auth";
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
   const idRef = useRef();
   const errRef = useRef();
 
