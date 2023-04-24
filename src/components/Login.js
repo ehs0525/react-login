@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
-import { useLocation, useNavigate } from "react-router-dom";
 
 const LOGIN_URL = "/auth";
 
@@ -48,6 +48,7 @@ const Login = () => {
         setAuth({ id, pw, roles, accessToken });
         setId("");
         setPw("");
+        console.log("Login success!");
         navigate(from, { replace: true });
       } catch (err) {
         if (!err?.response) {
